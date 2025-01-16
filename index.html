@@ -1,6 +1,50 @@
-<div id="user-name">Player</div>
-<div id="money">1000</div>
-<div id="game-result"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Game</title>
 
-<button id="start-btn">Start Game</button>
-<button id="play-btn">Play</button>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+  <script>
+    // Firebase configuration (replace with your actual Firebase configuration)
+    const firebaseConfig = {
+      apiKey: "your-api-key",
+      authDomain: "your-auth-domain",
+      projectId: "your-project-id",
+      storageBucket: "your-storage-bucket",
+      messagingSenderId: "your-sender-id",
+      appId: "your-app-id"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+</head>
+<body>
+
+  <div id="signup-form">
+    <input type="email" id="signup-email" placeholder="Enter Email">
+    <input type="password" id="signup-password" placeholder="Enter Password">
+    <button onclick="signUp()">Sign Up</button>
+  </div>
+
+  <div id="login-form">
+    <input type="email" id="login-email" placeholder="Enter Email">
+    <input type="password" id="login-password" placeholder="Enter Password">
+    <button onclick="logIn()">Log In</button>
+  </div>
+
+  <div id="game">
+    <button onclick="playGame()">Play</button>
+  </div>
+
+  <script src="app.js"></script>  <!-- Include your game logic here -->
+</body>
+</html>
