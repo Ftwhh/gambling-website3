@@ -3,48 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Game</title>
+  <title>Firebase Game Example</title>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+</head>
+<body>
+  <h1>Welcome to the Firebase Game!</h1>
+
+  <!-- Authentication Section -->
+  <div id="auth-section">
+    <h3>Sign In</h3>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Log In</button>
+  </div>
+
+  <!-- Game Section -->
+  <div id="game-section" style="display:none;">
+    <h3>Game is On!</h3>
+    <button id="start-game">Start Game</button>
+    <button id="logout-btn">Log Out</button>
+  </div>
 
   <script>
-    // Firebase configuration (replace with your actual Firebase configuration)
-    const firebaseConfig = {
-      apiKey: "your-api-key",
-      authDomain: "your-auth-domain",
-      projectId: "your-project-id",
-      storageBucket: "your-storage-bucket",
-      messagingSenderId: "your-sender-id",
-      appId: "your-app-id"
-    };
+    // Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD0ScS5SN-eh5sfOzd2pdbbvGB5MUJw0Qo",   // Replace with your actual API key
+  authDomain: "ftwhh.github.io",       // Replace with your actual authDomain
+  projectId: "ftw-gambke",                         // Replace with your actual projectId
+  storageBucket: "ftw-gambke.appspot.com",         // Replace with your actual storageBucket
+  messagingSenderId: "323194903956",                    // This is your messagingSenderId
+  appId: "1:323194903956:web:3ac31d3b672b964ba44381"    // Your appId
+};
+
 
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+
+    // Authentication UI Elements
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginButton = document.getElementById('login-btn');
+    const logoutButton = document.getElementById('logout-btn');
+    const gameSection = document.getElementById('game-section');
+    const authSection = document.getElementById('auth-section');
+    const startGameButton = document.getElementById('start-game');
+
+    // Sign in and Game Logic
+    loginButton.addEventListener('click', signIn);
+    logoutButton.addEventListener('click', logOut);
+    startGameButton.addEventListener('click', startGame);
+
+    // Sign In Function
+    function signIn() {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+          console.log('User signed in: ', user);
+          authSection.style.display = 'none';
+          gameSection.style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error signing in: ', error.message);
+        });
+    }
+
+    // Log Out Function
+    function logOut() {
+      auth.signOut().then(() => {
+        authSection.style.display = 'block';
+        gameSection.style.display = 'none';
+      }).catch(error => {
+        console.error('Error logging out: ', error.message);
+      });
+    }
+
+    // Start Game Function
+    function startGame() {
+      console.log('Game Started!');
+      // Here, you can add logic for your game, e.g., a simple multiplier game or Blackjack.
+    }
   </script>
-</head>
-<body>
-
-  <div id="signup-form">
-    <input type="email" id="signup-email" placeholder="Enter Email">
-    <input type="password" id="signup-password" placeholder="Enter Password">
-    <button onclick="signUp()">Sign Up</button>
-  </div>
-
-  <div id="login-form">
-    <input type="email" id="login-email" placeholder="Enter Email">
-    <input type="password" id="login-password" placeholder="Enter Password">
-    <button onclick="logIn()">Log In</button>
-  </div>
-
-  <div id="game">
-    <button onclick="playGame()">Play</button>
-  </div>
-
-  <script src="app.js"></script>  <!-- Include your game logic here -->
 </body>
 </html>
